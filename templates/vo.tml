@@ -1,0 +1,15 @@
+package ${packageName}.entity.vo;
+
+import ${packageName}.entity.po.${beanModel}DO;
+
+/**
+ * [description] 输出类
+ * @author [author]
+ * @create [datetime]
+**/
+public class ${beanModel}VO extends ${beanModel}DO {
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+}

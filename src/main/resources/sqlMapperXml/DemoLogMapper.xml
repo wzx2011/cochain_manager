@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.cochain.mapper.DemoLogMapper" >
+ 	 <resultMap id="BaseResultMap" type="com.manage.cochain.entity.vo.DemoLogVO" >
+	      <id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="requestUrl" column="request_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="requestData" column="request_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+	      <result property="responseData" column="response_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+	      <result property="status" column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="errorMessage" column="error_message" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+	      <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+  	</resultMap>
+
+  	<sql id="Base_Column_List">
+  		id,request_url,request_data,response_data,status,error_message,create_time
+  	</sql>
+
+	<sql id="DemoLog_Query_Where">
+		<if test="requestUrl!=null and requestUrl!=''">
+			and request_url like '%${requestUrl}%'
+		</if>
+	</sql>
+
+  	<!--查询所有-->
+  	<select id="getDemoLogAllList" resultMap="BaseResultMap" parameterType="com.manage.cochain.entity.dto.DemoLogDTO">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			demo_log
+		<where>
+			<include refid="DemoLog_Query_Where"/>
+		</where>
+		ORDER BY
+			create_time desc
+		<if test="start !=null and end !=null" >
+			LIMIT  #{start},#{end}
+		</if>
+  	</select>
+
+	<!--统计数据-->
+	<select id="findDemoLogTotal" resultType="int" parameterType="com.manage.cochain.entity.dto.DemoLogDTO">
+		SELECT
+			count(*)
+		FROM
+		demo_log
+		<where>
+			<include refid="DemoLog_Query_Where"/>
+		</where>
+
+	</select>
+
+  	<!--查询单个-->
+  	<select id="getDemoLogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			demo_log
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+
+	<!--新增信息-->
+	<insert id="saveDemoLog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.manage.cochain.entity.dto.DemoLogDTO">
+	    insert into demo_log (request_url,request_data,response_data,status,error_message,create_time)
+			values(#{requestUrl,jdbcType=VARCHAR},#{requestData,jdbcType=LONGVARCHAR},#{responseData,jdbcType=LONGVARCHAR},#{status,jdbcType=INTEGER},#{errorMessage,jdbcType=LONGVARCHAR},now())
+	</insert>
+
+  	<!--修改信息-->
+  	<update id="updateDemoLog" parameterType="com.manage.cochain.entity.dto.DemoLogDTO" flushCache="true">
+  		update demo_log 
+  		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="requestUrl!=null and requestUrl!=''">request_url = #{requestUrl,jdbcType=VARCHAR},</if>
+			<if test="requestData!=null and requestData!=''">request_data = #{requestData,jdbcType=LONGVARCHAR},</if>
+			<if test="responseData!=null and responseData!=''">response_data = #{responseData,jdbcType=LONGVARCHAR},</if>
+			<if test="status!=null">status = #{status,jdbcType=INTEGER},</if>
+			<if test="errorMessage!=null and errorMessage!=''">error_message = #{errorMessage,jdbcType=LONGVARCHAR},</if>
+			<if test="createTime!=null">create_time = now(),</if>
+  		</set>
+  		where id = #{id ,jdbcType=INTEGER}
+  	</update>
+
+  	<!--根据id删除信息-->
+  	<delete id="deleteDemoLogById" flushCache="true">
+  		delete from demo_log where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

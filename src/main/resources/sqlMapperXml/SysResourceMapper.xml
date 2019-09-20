@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangzhixuan.mapper.SysResourceMapper">
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+        id, name, url, description, icon, pid, seq, status, open_mode as openMode, opened, resource_type AS resourceType, create_time AS createTime
+    </sql>
+
+
+    <!--首页 根据角色查询菜单信息-->
+    <select id="selectResourcelListMain" resultType="com.wangzhixuan.model.SysResource" parameterType="java.util.Map">
+        SELECT   DISTINCT s.id AS id,
+        s.NAME AS 'name',
+        s.url AS url,
+        s.description AS description,
+        s.icon AS icon,
+        s.seq AS seq,
+        s.open_mode AS openMode,
+        FROM
+        sys_role r
+        LEFT JOIN sys_role_resource e ON r.id = e.role_id
+        LEFT JOIN sys_resource s ON e.resource_id = s.id
+        WHERE
+        r.id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND s.url != ''
+        AND s.resource_type = 0
+        AND s.STATUS = 0
+        ORDER BY
+          s.id,s.seq
+        limit 10
+    </select>
+</mapper>

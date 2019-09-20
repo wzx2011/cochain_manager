@@ -1,0 +1,42 @@
+package ${packageName}.entity.po;
+
+import java.util.Date;
+
+/**
+ * ${description} 实体类
+ * @author ${author}
+ * @create ${datetime}
+**/
+public class ${beanModel}DO {
+	
+	<#list fields as data>
+    private ${data.ctype} ${data.name};
+    </#list>
+    
+    public ${beanModel}DO() {
+        super();
+    }
+    
+    public ${beanModel}DO(<#list fields as data>${data.ctype} ${data.name}${(data_index <fields?size-1)?string(",","")}</#list>) {
+        super();
+        <#list fields as data>
+        this.${data.name} = ${data.name};
+        </#list>
+    }
+    
+	<#list fields as data>
+    public ${data.ctype} get${data.hname}() {
+        return ${data.name};
+    }
+
+    public void set${data.hname}(${data.ctype} ${data.name}) {
+        this.${data.name} = ${data.name};
+    }
+ 	</#list>
+ 	
+ 	public String toString(<#list fields as data>${data.ctype} ${data.name}${(data_index <fields?size-1)?string(",","")}</#list>) {
+        return "${beanModel}:【<#list fields as data>this.${data.name}:"+${data.name}+"${(data_index <fields?size-1)?string(",","")}</#list>】";
+    }
+    
+
+}

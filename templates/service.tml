@@ -1,0 +1,58 @@
+package ${packageName}.service;
+
+
+import ${packageName}.entity.vo.${beanModel}VO;
+import ${packageName}.entity.dto.${beanModel}DTO;
+import java.util.Map;
+/**
+ * ${description} Service接口层
+ * @author ${author}
+ * @create ${datetime}
+ **/
+public interface I${beanModel}Service {
+
+	/**
+	 * @Author  ${author}
+	 * @Description //TODO 查询分页数据
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return List<${beanModel}VO>
+	 **/
+	Map<String,Object> get${beanModel}AllList(${beanModel}DTO ${model}DTO);
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 新增
+	* @Date ${datetime}
+	* @Param ${beanModel}DTO
+	* @return Map
+	**/
+	Map<String, Object> save${beanModel}(${beanModel}DTO ${model}DTO);
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 修改
+	* @Date ${datetime}
+	* @Param ${beanModel}DTO
+	* @return Map
+	**/
+	Map<String, Object> update${beanModel}(${beanModel}DTO ${model}DTO);
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 删除
+	* @Date ${datetime}
+	* @Param ${beanModel}DTO
+	* @return Map
+	**/
+	Map<String, Object> delete${beanModel}ById(Integer id);
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 查询单个
+	* @Date ${datetime}
+	* @Param id
+	* @return ${beanModel}VO
+	**/
+	${beanModel}VO get${beanModel}ById(Integer id);
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.cochain.mapper.BasePoolMapper" >
+ 	 <resultMap id="BaseResultMap" type="com.manage.cochain.entity.vo.BasePoolVO" >
+	      <id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="hash" column="hash" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="type" column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="user" column="user" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="state" column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="artifactId" column="artifact_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="txHash" column="tx_hash" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	      <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	      <result property="appIndex" column="app_index" jdbcType="VARCHAR" javaType="java.lang.String" />
+  	</resultMap>
+
+  	<sql id="Base_Column_List">
+  		id,hash,type,user,state,artifact_id,tx_hash,modify_time,create_time,app_index
+  	</sql>
+
+	<sql id="BasePool_Query_Where">
+	   and 1=1
+	</sql>
+
+  	<!--查询所有-->
+  	<select id="getBasePoolAllList" resultMap="BaseResultMap" parameterType="com.manage.cochain.entity.dto.BasePoolDTO">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_base_pool
+		<where>
+			<include refid="BasePool_Query_Where"/>
+		</where>
+		<if test="start !=null and end !=null" >
+			LIMIT  #{start},#{end}
+		</if>
+  	</select>
+
+	<!--统计数据-->
+	<select id="findBasePoolTotal" resultType="int" parameterType="com.manage.cochain.entity.dto.BasePoolDTO">
+		SELECT
+			count(*)
+		FROM
+		t_base_pool
+		<where>
+			<include refid="BasePool_Query_Where"/>
+		</where>
+
+	</select>
+
+  	<!--查询单个-->
+  	<select id="getBasePoolById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_base_pool
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+
+	<!--新增信息-->
+	<insert id="saveBasePool" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.manage.cochain.entity.dto.BasePoolDTO">
+	    insert into t_base_pool (hash,type,user,state,artifact_id,tx_hash,modify_time,create_time,app_index)
+			values(#{hash,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{user,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},#{artifactId,jdbcType=VARCHAR},#{txHash,jdbcType=VARCHAR},now(),now(),#{appIndex,jdbcType=VARCHAR})
+	</insert>
+
+  	<!--修改信息-->
+  	<update id="updateBasePool" parameterType="com.manage.cochain.entity.dto.BasePoolDTO" flushCache="true">
+  		update t_base_pool 
+  		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="hash!=null and hash!=''">hash = #{hash,jdbcType=VARCHAR},</if>
+			<if test="type!=null and type!=''">type = #{type,jdbcType=VARCHAR},</if>
+			<if test="user!=null and user!=''">user = #{user,jdbcType=VARCHAR},</if>
+			<if test="state!=null">state = #{state,jdbcType=INTEGER},</if>
+			<if test="artifactId!=null and artifactId!=''">artifact_id = #{artifactId,jdbcType=VARCHAR},</if>
+			<if test="txHash!=null and txHash!=''">tx_hash = #{txHash,jdbcType=VARCHAR},</if>
+			<if test="modifyTime!=null">modify_time = now(),</if>
+			<if test="createTime!=null">create_time = now(),</if>
+			<if test="appIndex!=null and appIndex!=''">app_index = #{appIndex,jdbcType=VARCHAR},</if>
+  		</set>
+  		where id = #{id ,jdbcType=INTEGER}
+  	</update>
+
+  	<!--根据id删除信息-->
+  	<delete id="deleteBasePoolById" flushCache="true">
+  		delete from t_base_pool where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangzhixuan.mapper.SysOrganizationMapper">
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+        id, name, address, code, icon, pid, seq, create_time AS createTime
+    </sql>
+
+    <insert id="insertOrganizationId" parameterType="com.wangzhixuan.model.SysOrganization" useGeneratedKeys="true" keyProperty="id">
+        INSERT  INTO  sys_organization(name,code,seq,create_time,enterprise_id)
+        VALUES (#{name,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR},#{seq,jdbcType=INTEGER},now(),#{enterpriseId,jdbcType=INTEGER})
+    </insert>
+
+    <!--查询部门管理列表-->
+    <select id="selectOrganizationPage" resultType="java.util.Map">
+        select
+        o.id, o.name, o.address, o.code, o.icon, o.pid, o.seq, o.create_time AS createTime,
+        o.enterprise_id as enterpriseId
+        from
+        sys_organization o
+        order by o.id
+    </select>
+
+    <!--查询部门管理集合-->
+    <select id="selectOrganizationList" resultType="com.wangzhixuan.model.SysOrganization">
+        select
+        o.id, o.name, o.address, o.code, o.icon, o.pid, o.seq, o.create_time AS createTime,
+        o.enterprise_id as enterpriseId
+        from
+        sys_organization o
+        order by o.id
+    </select>
+</mapper>

@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none
+}
+.pay_main{
+    width:900px;
+    margin:20px auto
+}
+.pay_main .pay_title{
+    color:#333;
+    font-size: 14px; 
+    line-height: 30px;
+}
+.pay_main .pay_title img{
+    position: relative;
+    width:25px;
+    top:7px;
+    right: 5px;
+}
+.clr{
+    clear: both;
+    line-height:0;
+}
+.pay_content{
+    margin:20px 0;
+}
+.pay_content .pay_left{
+    float:left;
+    color:#999;
+    line-height: 30px;
+    text-align: center;
+    padding-right:100px;
+    border-right:1px dotted #cccccc
+
+}
+.pay_content .pay_left img{
+    width:208px;
+    margin:10px 0
+}
+.pay_content .pay_right {
+    margin-left:100px;
+    float: left;
+    line-height: 30px;
+}
+.pay_content .pay_right .money{
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.pay_content .pay_right .money span{
+    font-size: 14px;
+}
+.pay_content .pay_right .title{
+    font-size:20px;
+    line-height: 60px;
+}
+.pay_content .pay_right .list em{
+    font-style:normal
+}
+.pay_content .pay_right .list, .pay_content .pay_right .list li{
+    list-style: none;
+    font-size:13px;
+}
+.pay_content .pay_right .list li span{
+    color:#999;
+    font-size:13px;
+    margin-right:5px;
+}
+.pay_list img{
+    margin:20px 5px;
+    width:40px;
+}

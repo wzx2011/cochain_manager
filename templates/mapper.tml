@@ -1,0 +1,71 @@
+package ${packageName}.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import ${packageName}.entity.vo.${beanModel}VO;
+import ${packageName}.entity.dto.${beanModel}DTO;
+
+/**
+ * ${description} Mappeer 接口层
+ * @author ${author}
+ * @create ${datetime}
+**/
+public interface ${beanModel}Mapper {
+
+	/**
+	 * @Author  ${author}
+	 * @Description //TODO 查询所有
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return List<${beanModel}VO>
+	 **/
+	List<${beanModel}VO> get${beanModel}AllList(${beanModel}DTO ${model}DTO);
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 统计数据
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return Integer
+	 **/
+	Integer find${beanModel}Total(${beanModel}DTO ${model}DTO);
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 新增
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	int save${beanModel}(${beanModel}DTO ${model}DTO);
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 修改
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	int update${beanModel}(${beanModel}DTO ${model}DTO);
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 删除
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	int delete${beanModel}ById(@Param("id")Integer id);
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 查询单个
+	 * @Date ${datetime}
+	 * @Param id
+	 * @return ${beanModel}VO
+	 **/
+	${beanModel}VO get${beanModel}ById(@Param("id")Integer id);
+
+}

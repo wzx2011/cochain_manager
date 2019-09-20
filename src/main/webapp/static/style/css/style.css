@@ -1,0 +1,360 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 20px;
+    font-size: 13px;
+    margin: 0;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+.messages-Context{
+	height:746px;
+	overflow-y:auto
+}
+.titlet{
+	background:#eee;
+	line-height:45px;
+}
+.titlet h3{
+	margin-left:48%;
+	float:left;
+
+}
+.titlet a{
+	width: 75px;
+	height: 25px;
+
+	float: right;
+	margin:10px;
+}
+.clr{
+	clear:both
+}
+.panel-body ul li a{
+	display:block;
+	padding:7px 0;
+}
+.panel-body ul li a:hover{
+	background:#eee;
+	color:#333
+}
+.panel h1{
+	font-size:25px;
+	font-weight:500;
+	margin:0;
+	line-height:50px;
+	
+}
+.card .cont{
+    padding: 15px 0;
+}
+.chart-js-container {
+    max-width: 70%;
+    padding-left: 15%;
+}
+.card .title {
+    margin: 0;
+    color: #252422;
+    font-weight: 300;
+    text-align:left;
+    padding:0;
+    font-size:15px;
+}
+.card .title em{
+	font-style:normal;
+	margin-left:20px;
+}
+.border-r{
+	border-right:1px solid #e4e4e4
+}
+.border-b{
+	border-bottom:1px solid #e4e4e4
+}
+.border-t{
+	border-top:1px solid #e4e4e4
+}
+.border-l{
+	border-left:1px solid #e4e4e4
+}
+.padding-lr{
+	padding-left:0;
+	padding-right:0
+}
+.mt-20{
+	margin-top:20px;
+}
+.pt-20{
+	padding-top:20px;
+}
+.list a{
+	width:91px;
+	background:#eee;
+	color:#333;
+	margin:5px 5px 5px 0;
+	float:left;
+	display:block;
+	padding:5px;
+}
+.list .list-name{
+	line-height:25px;
+	text-align:center;
+	font-size:15px;
+}
+.list i img{
+	width:35px;
+	height:35px;
+	margin:5px auto;
+	display:block;
+}
+.blue{
+	background:#87cefa
+}
+.orange{
+	background:#ff7f50
+}
+.colred{
+	background:#ce400c
+}
+.green{
+	background:#59c5d5
+}
+.pink{
+	background:#ed7eb2
+}
+.yellow{
+	background:#e9d740
+}
+.itemlist {
+    min-height: 105px;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+}
+.itemlist a {
+    width: 50%;
+    height: 80px;
+    float: left;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    color: #333;
+}
+.itemlist a p{
+	font-size: 25px;
+    margin: 0;
+}
+.index-notice-box {
+    padding-bottom: 15px;
+}
+.items-Context{
+    padding-right: 20px;
+    min-height: 628px;
+}
+.items-Context a{
+	color:#333
+}
+.index-notice-title {
+    font-weight: bold;
+    font-size: 14px;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #666;
+    width: 90%;
+    cursor:pointer;
+    margin-top:15px;
+}
+.index-after:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.index-notice-date {
+    font-size: 13px;
+    color: #666;
+    margin-top: 5px;
+    padding-left: 4px;
+}
+.index-notice-content {
+    padding-top: 10px;
+    cursor:pointer
+}
+.icon-commen{
+	background:url(../images/icon/icon-commen.png);
+	padding-left:0;
+}
+.icon-assets{
+	background:url(../images/icon/icon-zc.png);
+	padding-left:0;
+}
+.icon-budget{
+	background:url(../images/icon/icon-sz.png);
+	padding-left:0;
+}
+.icon-pay{
+	background:url(../images/icon/icon-pay.png);
+	padding-left:0;
+}
+.icon-invoice{
+	background:url(../images/icon/icon-invoice.png);
+	padding-left:0;
+}
+.icon-task{
+	background:url(../images/icon/icon-task.png);
+	padding-left:0;
+}
+.icon-notice{
+	background:url(../images/icon/icon-notice.png);
+	padding-left:0;
+}
+ .content {
+        background: url(../images/b.jpg) no-repeat;
+        background-size: cover;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        font-family: 'Microsoft YaHei';
+        font-size: 1.6rem;
+        color: #0B3D7C;
+        
+    }
+#content{
+	overflow:hidden
+}
+    .blockchain {
+        color: #0B3D7C;
+        font-size: 1.7rem;
+        position: absolute;
+        left: 20%;
+        top: 17%;
+        font-weight: bold;
+    }
+
+    .zs {
+        color: #606191;
+        font-size: 2.4rem;
+        text-align: center;
+        position: relative;
+        left: 45.23%;
+        top: 22.78%;
+    }
+
+    .logo {
+        position: absolute;
+        left: 44.63%;
+        top: 74.83%;
+        width: 40px;
+        height: 40px;
+        display: block
+    }
+
+    .global-time {
+        font-family: 'Times New Roman', Georgia, Serif;
+        color: #5a5234ad;
+        font-size: 1rem;
+        text-align: center;
+        position: absolute;
+        left: 8%;
+        top: 25%;
+    }
+
+    .beijing-time {
+        font-family: 'Times New Roman', Georgia, Serif;
+        color: #5a5234ad;
+        font-size: 1rem;
+        text-align: center;
+        position: absolute;
+        left: 8%;
+        top: 29%;
+    }
+
+    .id-div {
+        font-family: Arial, Verdana, Sans-serif;
+        font-size: 1.3rem;
+        position: relative;
+        left: 30%;
+        top: 29%;
+        color: #4c678a;
+    }
+
+    .id-content {
+        font-family: 'Times New Roman', Georgia, Serif;
+        position: relative;
+        font-size: 1rem;
+        left: 10%;
+        top: 31%;
+        color: #4c678a;
+        display: block;
+        width:328px;
+        overflow:hidden;
+    }
+
+    .suyuan {
+        font-family: 'Microsoft YaHei';
+        position: relative;
+        font-size: 0.96rem;
+        left: 9%;
+        top: 32%;
+        color: #4c678a;
+        display: block;
+        line-height:24px;
+    }
+
+    .qrcode {
+        position: absolute;
+        font-size: 0.4rem;
+        left: 37%;
+        top: 54%;
+        width: 100px;
+        height: 100px;
+        display: block
+    }
+
+    .qrcode-content {
+        font-family: 'Microsoft YaHei';
+        position: absolute;
+        font-size: 1rem;
+        left: 27%;
+        top: 70%;
+        color: #020f1f;
+        display: block
+    }
+
+    .sm {
+        font-family: 'Microsoft YaHei';
+        position: absolute;
+        font-size: 1rem;
+        left: 42.19%;
+        top: 81.77%;
+        color: black;
+        display: block
+    }
+
+    .sm-content {
+        font-family: 'Microsoft YaHei';
+        position: absolute;
+        font-size: 1rem;
+        left: 10%;
+        top: 86%;
+        color: black;
+        display: block;
+        width:330px;
+        text-align:center;
+    }
+    
+	.gys,.hxqy,.zjf{
+		display:none
+	}

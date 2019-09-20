@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.cochain.mapper.LogMapper" >
+	<resultMap id="BaseResultMap" type="com.manage.cochain.entity.vo.LogVO" >
+		<id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+		<result property="requestUser" column="request_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="requestApi" column="request_api" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="requestData" column="request_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+  		id,request_user,request_api,request_data,create_time
+  	</sql>
+
+	<sql id="Log_Query_Where">
+	   and 1=1
+	</sql>
+
+  	<!--查询所有-->
+  	<select id="getLogAllList" resultMap="BaseResultMap" parameterType="com.manage.cochain.entity.dto.LogDTO">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_log
+		<where>
+			<include refid="Log_Query_Where"/>
+		</where>
+		<if test="start !=null and end !=null" >
+			LIMIT  #{start},#{end}
+		</if>
+  	</select>
+
+	<!--统计数据-->
+	<select id="findLogTotal" resultType="int" parameterType="com.manage.cochain.entity.dto.LogDTO">
+		SELECT
+			count(*)
+		FROM
+		t_log
+		<where>
+			<include refid="Log_Query_Where"/>
+		</where>
+	</select>
+
+  	<!--查询单个-->
+  	<select id="getLogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_log
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+
+	<!--新增信息-->
+	<insert id="saveLog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.manage.cochain.entity.dto.LogDTO">
+	    insert into t_log (request_user,request_api,request_data,create_time)
+			values(#{requestUser,jdbcType=VARCHAR},#{requestApi,jdbcType=VARCHAR},#{requestData,jdbcType=LONGVARCHAR},now())
+	</insert>
+
+	<!--修改信息-->
+	<update id="updateLog" parameterType="com.manage.cochain.entity.dto.LogDTO" flushCache="true">
+		update t_log
+		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="requestUser!=null and requestUser!=''">request_user = #{requestUser,jdbcType=VARCHAR},</if>
+			<if test="requestApi!=null and requestApi!=''">request_api = #{requestApi,jdbcType=VARCHAR},</if>
+			<if test="requestData!=null and requestData!=''">request_data = #{requestData,jdbcType=LONGVARCHAR},</if>
+			<!--<if test="createTime!=null">create_time = now(),</if>-->
+		</set>
+		where id = #{id ,jdbcType=INTEGER}
+	</update>
+
+  	<!--根据id删除信息-->
+  	<delete id="deleteLogById" flushCache="true">
+  		delete from t_log where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

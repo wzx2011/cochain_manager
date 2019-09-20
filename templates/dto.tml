@@ -1,0 +1,34 @@
+package ${packageName}.entity.dto;
+
+import ${packageName}.entity.po.${beanModel}DO;
+
+/**
+ * ${description} 传输类
+ * @author ${author}
+ * @create ${datetime}
+**/
+public class ${beanModel}DTO extends ${beanModel}DO {
+
+        private int start;
+        private int end;
+
+        public int getStart() {
+        return start;
+        }
+
+        public void setStart(int start) {
+        this.start = start;
+        }
+
+        public int getEnd() {
+        return end;
+        }
+
+        public void setEnd(int end) {
+        this.end = end;
+        }
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+}

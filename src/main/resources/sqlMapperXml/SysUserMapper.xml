@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangzhixuan.mapper.SysUserMapper">
+
+    <resultMap id="userVoResultMap" type="com.wangzhixuan.model.vo.UserVo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="TINYINT"/>
+        <result column="age" property="age" jdbcType="TINYINT"/>
+        <result column="user_type" property="userType" jdbcType="TINYINT"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="organization_id" property="organizationId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
+        <result column="organizationName" property="organizationName" jdbcType="VARCHAR"/>
+        <result column="enterprise_id" property="enterpriseId" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="ethereum_account" property="ethereumAccount" jdbcType="VARCHAR"/>
+        <result column="ethereum_password" property="ethereumPassword" jdbcType="VARCHAR"/>
+        <result column="deadlineStr" property="deadlineStr" jdbcType="VARCHAR"/>
+        <collection property="rolesList" ofType="SysRole">
+            <id column="roleId" property="id"/>
+            <result column="roleName" property="name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+        id, login_name AS loginName, name, password, salt, sex, age, phone, user_type AS userType, status, organization_id AS organizationId,
+        create_time AS createTime,enterprise_id as enterpriseId ,deadline,email,ethereum_account as ethereumAccount,ethereum_password as ethereumPassword
+    </sql>
+
+    <select id="selectUserVoById" resultMap="userVoResultMap" parameterType="java.lang.Long">
+        SELECT
+        t.id,
+        login_name,
+        t.`name`,
+        `password`,
+        sex,
+        age,
+        user_type,
+        t.`status`,
+        organization_id,
+        t.create_time,
+        phone,
+        s.`name` AS organizationName,
+        o.id AS roleId,
+        o.`name` AS roleName,
+        t.enterprise_id  ,
+        t.deadline,
+        t.email,
+        t.ethereum_account ,
+        t.ethereum_password,
+        t.ethereum_account ,
+        t.ethereum_password ,
+        DATE_FORMAT(t.deadline,'%Y-%m-%d') as deadlineStr
+        FROM
+        sys_user t
+        LEFT JOIN sys_user_role r ON t.id = r.user_id
+        LEFT JOIN sys_role o ON r.role_id = o.id
+        LEFT JOIN sys_organization s ON s.id = t.organization_id
+        <where>
+            t.id = #{id}
+        </where>
+    </select>
+
+    <select id="selectUserPage" resultType="Map">
+        SELECT 
+        t.id, t.login_name AS loginName, t.`name`, t.phone, t.`password`, 
+        t.sex, t.age, t.create_time AS createTime, t.user_type AS userType, 
+        t.`status`, t.organization_id AS organizationId,
+        t.enterprise_id as enterpriseId ,t.deadline,t.email,
+        t.ethereum_account as ethereumAccount,
+        t.ethereum_password as ethereumPassword,
+        s.`name` AS organizationName, group_concat(o.`name`) AS rolesList
+        FROM sys_user t
+        LEFT JOIN sys_user_role r ON t.id = r.user_id
+        LEFT JOIN sys_role o ON r.role_id = o.id
+        LEFT JOIN sys_organization s ON s.id = t.organization_id
+        <where>
+            <if test=" roleType != null and roleType != '' ">
+              and  o.role_type  in (1,0)
+            </if>
+            <if test=" name != null and name != '' ">
+               and  t.name like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test=" enterpriseId != null and enterpriseId != '' ">
+                and t.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+            </if>
+            <if test=" organizationId != null ">
+                and t.organization_id = #{organizationId,jdbcType=INTEGER}
+            </if>
+            <if test=" status != null ">
+                and t.status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test=" startTime != null ">
+                and t.create_time >= str_to_date(#{startTime,jdbcType=VARCHAR},'%Y-%m-%d')
+            </if>
+            <if test=" endTime != null ">
+                and t.create_time &lt;= str_to_date(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d') +1
+            </if>
+        </where>
+        GROUP BY t.id
+    </select>
+
+    <select id="searchUserByEnterpriseId" resultMap="userVoResultMap" parameterType="java.lang.Integer">
+        SELECT
+        t.id,
+        login_name,
+        t.`name`,
+        `password`,
+        sex,
+        age,
+        user_type,
+        t.`status`,
+        organization_id,
+        t.create_time,
+        phone,
+        s.`name` AS organizationName,
+        o.id AS roleId,
+        o.`name` AS roleName,
+        t.enterprise_id as enterpriseId ,
+        t.deadline,
+        t.email,
+        t.ethereum_account as ethereumAccount,
+        t.ethereum_password as ethereumPassword
+        FROM
+        sys_user t
+        LEFT JOIN sys_user_role r ON t.id = r.user_id
+        LEFT JOIN sys_role o ON r.role_id = o.id
+        LEFT JOIN sys_organization s ON s.id = t.organization_id
+        <where>
+            t.enterprise_id = #{enterpriseId}
+        </where>
+    </select>
+
+    <!-- 根据企业id查询用户集合 -->
+    <select id="findUserMapByEnterpriseId" parameterType="String"
+            resultType="java.util.HashMap">
+        SELECT
+        t1.id,
+        t1.name,
+        t1.password,
+        t1.phone,
+        t1.email,
+        t1.enterprise_id,
+        t2.role_id,
+        t1.ethereum_account,
+        DATE_FORMAT(t1.create_time,'%Y-%m-%d %H:%i:%s') AS createtime
+        FROM sys_user AS t1
+        LEFT JOIN sys_user_role AS t2
+        ON t1.id = t2.user_id
+        WHERE
+        t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        AND t1.status = 0
+    </select>
+<!--查询待审核用户-->
+    <select id="countMainUser"  resultType="integer">
+        select count(id)
+        from sys_user
+        where status=2
+    </select>
+
+    <!-- 根据企业id修改用户有效时间 -->
+    <update id="updUserDeadlineByEnterpriseId" parameterType="java.util.HashMap">
+		UPDATE `sys_user`
+        SET deadline = #{deadline}
+        WHERE
+            enterprise_id = #{enterpriseId}
+	</update>
+
+    <!--根据企业id获取对应管理员用户的有效时间-->
+    <select id="getDeadlineByEnterpriseId" parameterType="integer" resultType="String">
+        SELECT
+            t1.deadline
+        FROM
+            `sys_user` t1
+        WHERE
+            t1.enterprise_id = #{enterprise_id}
+        AND t1.user_type = 0
+        LIMIT 1
+    </select>
+
+    <!--根据企业id获取对应管理员用户的有效时间-->
+    <select id="getUserRoleTypeName" parameterType="integer" resultType="String">
+        SELECT
+            t3.`name`
+        FROM
+            `sys_user` t1
+        LEFT JOIN sys_user_role t2 ON t1.id = t2.user_id
+        LEFT JOIN sys_role t3 ON t2.role_id = t3.id
+        WHERE
+            t1.user_type = 0
+        AND t1.enterprise_id = #{enterpriseId}
+    </select>
+
+</mapper>

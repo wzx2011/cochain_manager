@@ -1,0 +1,203 @@
+body,html{
+    margin:0;
+    padding:0;
+    font-size:16px;
+    font-weight: normal
+}
+h1,h2,h3,h4,h5,h6,p,ul,li{
+    margin:0;
+}
+.top{
+    background:url(../images/bj.png) no-repeat center center;
+    width:100%;
+    padding:50px 0
+}
+.top2{
+    padding:35px 0
+}
+.top .logo{
+    width:75px;
+    margin:0 auto;
+    display: block;
+}
+.top h3{
+    font-size: 1.4rem;
+    text-align: center;
+    color:#fff;
+}
+.login{
+    margin:50px 0;
+   
+}
+.login .line{
+    border-bottom:1px solid #ccc;
+    height:70px;
+    padding:0 20px;
+}
+.login .line input{
+    border:none;
+    margin-top:20px;
+    line-height: 40px;
+    display: block;
+    float:left;
+    margin-left: 20px;
+    font-size:1.1rem;
+    width:50%;
+}
+.login .line img{
+    width:35px;
+    padding-top:20px;
+    display: block;
+    float:left
+}
+.login .line .err,.login .line .err2{
+    float:left;
+    color:red;
+    margin-top:20px;
+    line-height: 40px;
+}
+.button input{
+    width:95%;
+    height:50px;
+    margin:30px auto;
+    display: block;
+    background: #1a8ccb;
+    color:#fff;
+    font-size:1.2rem;
+    border:0;
+    border-radius: 50px;
+}
+#code{  
+    font-family:Arial;  
+    font-style:italic;  
+    font-weight:bold;  
+    letter-spacing:2px;  
+    color:#333;  
+}
+.login .line input.button1{
+    width:100px;
+    height:35px;
+    color: #fff;
+    outline: none;
+    background:#eeeeee;
+    border:none;
+    font-size:1.4rem;
+    margin-left:0
+}
+#error{
+    font-size:1rem;
+    color:red;
+    text-align: center;
+    
+}
+.top .head{
+    width:100px;
+    height:100px;
+    border-radius: 100px 100px 100px 100px;
+    margin:0 auto;
+    display: block;
+}
+.top h4{
+    font-size:1.3rem;
+    text-align: center;
+    color:#fff;
+    line-height: 50px;
+}
+.top p{
+    text-align: center;
+    color:#fff;
+    line-height: 25px;
+    display:block;
+    margin: 0 5%;
+    width: 90%;
+    word-break: break-all
+}
+
+.notice-tit ul{
+    padding:0
+}
+.notice-tit ul li{
+    width:50%;
+    float:left;
+    height:50px;
+    line-height: 50px;
+    font-size:1rem;
+    list-style: none;
+    text-align: center;
+    
+}
+.notice-tit ul li a{
+    text-decoration: none;
+    color:#333
+}
+.notice-tit ul li.select{
+    background:#daf0fc;
+    
+}
+.notice-tit ul li.select a{
+    color:#1a8ccb
+}
+.notice-con ul.list{
+   width:100%;
+    padding:0;
+}
+.notice-con ul.list li {
+    width: 90%;
+    list-style: none;
+    display: flex;
+    padding:0 5%;
+    border-bottom:1px solid #eee;
+    font-size:0.9rem;
+
+  }
+  .notice-con ul.list li span {
+    flex:1;
+    line-height: 30px;
+    margin:10px;
+    display: inline-flex
+  }
+  .notice-con ul.list li span a{
+      text-decoration: none;
+      color:#000
+  }
+  .notice-con div.show {display: block;}
+  .notice-con ul.list li.no-text{
+      text-align: center;
+      line-height: 200px;
+      font-size: 1.2rem;
+      color:red;
+      display: inline-block;
+      border-bottom:0
+  }
+  .notice-con ul.exchange li{
+      display:inline-block
+  }
+  .notice-con ul.exchange li div{
+    margin:8px 0
+  }
+  .notice-con ul.exchange li div i{
+    width:28%;
+    display: block;
+    float:left;
+    font-style: normal;
+    text-align: right;
+  }
+  .notice-con ul.exchange li div em{
+    width:65%;
+    display: block;
+    float:left;
+    margin-left:6%;
+    font-style: normal;
+    word-break: break-all
+
+  }
+  .notice-con ul.exchange li div.clr{clear: left;}
+  .notice-tit{
+    line-height:40px;
+    padding-left:5%;
+    background:#b1e0fa;
+    margin-top:1px;    
+  }
+  .notice-con ul.list li span.uid{
+      display:none
+  }

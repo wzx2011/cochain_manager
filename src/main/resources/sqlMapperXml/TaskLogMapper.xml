@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.cochain.mapper.TaskLogMapper" >
+	<resultMap id="BaseResultMap" type="com.manage.cochain.entity.vo.TaskLogVO" >
+		<id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+		<result property="artifactId" column="artifact_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="txHash" column="tx_hash" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="state" column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+		<result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		<result property="message" column="message" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="className" column="class" jdbcType="VARCHAR" javaType="java.lang.String" />
+		<result property="dataSource" column="data_source" jdbcType="VARCHAR" javaType="java.lang.String" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+  		id,artifact_id,tx_hash,state,modify_time,create_time,message,class,data_source
+  	</sql>
+
+	<sql id="TaskLog_Query_Where">
+	   and 1=1
+	</sql>
+
+  	<!--查询所有-->
+  	<select id="getTaskLogAllList" resultMap="BaseResultMap" parameterType="com.manage.cochain.entity.dto.TaskLogDTO">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_task_log
+		<where>
+			<include refid="TaskLog_Query_Where"/>
+		</where>
+		<if test="start !=null and end !=null" >
+			LIMIT  #{start},#{end}
+		</if>
+  	</select>
+
+	<!--统计数据-->
+	<select id="findTaskLogTotal" resultType="int" parameterType="com.manage.cochain.entity.dto.TaskLogDTO">
+		SELECT
+			count(*)
+		FROM
+		t_task_log
+		<where>
+			<include refid="TaskLog_Query_Where"/>
+		</where>
+	</select>
+
+  	<!--查询单个-->
+  	<select id="getTaskLogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_task_log
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+
+	<!--新增信息-->
+	<insert id="saveTaskLog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.manage.cochain.entity.dto.TaskLogDTO">
+	    insert into t_task_log (artifact_id,tx_hash,state,modify_time,create_time,message,class,data_source)
+			values(#{artifactId,jdbcType=VARCHAR},#{txHash,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},now(),now(),#{message,jdbcType=VARCHAR},#{class,jdbcType=VARCHAR},#{dataSource,jdbcType=VARCHAR})
+	</insert>
+
+	<!--修改信息-->
+	<update id="updateTaskLog" parameterType="com.manage.cochain.entity.dto.TaskLogDTO" flushCache="true">
+		update t_task_log
+		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="artifactId!=null and artifactId!=''">artifact_id = #{artifactId,jdbcType=VARCHAR},</if>
+			<if test="txHash!=null and txHash!=''">tx_hash = #{txHash,jdbcType=VARCHAR},</if>
+			<if test="state!=null">state = #{state,jdbcType=INTEGER},</if>
+			<if test="modifyTime!=null">modify_time = now(),</if>
+			<!--<if test="createTime!=null">create_time = now(),</if>-->
+			<if test="message!=null and message!=''">message = #{message,jdbcType=VARCHAR},</if>
+			<if test="class!=null and class!=''">class = #{class,jdbcType=VARCHAR},</if>
+			<if test="dataSource!=null and dataSource!=''">data_source = #{dataSource,jdbcType=VARCHAR},</if>
+		</set>
+		where id = #{id ,jdbcType=INTEGER}
+	</update>
+
+  	<!--根据id删除信息-->
+  	<delete id="deleteTaskLogById" flushCache="true">
+  		delete from t_task_log where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

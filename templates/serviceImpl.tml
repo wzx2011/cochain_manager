@@ -1,0 +1,124 @@
+package ${packageName}.service.impl;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import ${packageName}.mapper.${beanModel}Mapper;
+import ${packageName}.entity.vo.${beanModel}VO;
+import ${packageName}.entity.dto.${beanModel}DTO;
+import ${packageName}.service.I${beanModel}Service;
+
+
+/**
+ * ${description} Service 实现层
+ * @author ${author}
+ * @create ${datetime}
+ **/
+@Service
+public class ${beanModel}ServiceImpl implements I${beanModel}Service  {
+
+	@Autowired
+	private ${beanModel}Mapper ${model}Mapper;
+
+	/**
+	 * @Author  ${author}
+	 * @Description //TODO 查询分页数据
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return List<${beanModel}VO>
+	 **/
+	@Override
+	public Map<String,Object> get${beanModel}AllList(${beanModel}DTO ${model}DTO){
+		Map<String,Object> resultMap=new HashMap<>();
+		List<${beanModel}VO> ${model}List = new ArrayList<>();
+		Integer ${model}Total = ${model}Mapper.find${beanModel}Total(${model}DTO);
+		if(${model}Total>0){
+			${model}List = ${model}Mapper.get${beanModel}AllList(${model}DTO);
+		}
+		resultMap.put("rows", ${model}List);
+		resultMap.put("total", ${model}Total);
+		return resultMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 新增
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Map<String, Object> save${beanModel}(${beanModel}DTO ${model}DTO){
+		Map<String,Object> resultMap=new HashMap<>();
+		if(${model}Mapper.save${beanModel}(${model}DTO)>0){
+			resultMap.put("info", true);
+			resultMap.put("msg", "添加成功！");
+		}else {
+			resultMap.put("info", false);
+			resultMap.put("msg", "添加失败！");
+		}
+		return resultMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 修改
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Map<String, Object> update${beanModel}(${beanModel}DTO ${model}DTO){
+		Map<String,Object> resultMap=new HashMap<>();
+		if(${model}Mapper.update${beanModel}(${model}DTO)>0){
+			resultMap.put("info", true);
+			resultMap.put("msg", "修改成功！");
+		}else {
+			resultMap.put("info", false);
+			resultMap.put("msg", "修改失败！");
+		}
+		return resultMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 删除
+	 * @Date ${datetime}
+	 * @Param ${beanModel}DTO
+	 * @return int
+	 **/
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Map<String, Object> delete${beanModel}ById(Integer id){
+		Map<String,Object> resultMap=new HashMap<>();
+		if(${model}Mapper.delete${beanModel}ById(id)>0){
+			resultMap.put("info", true);
+			resultMap.put("msg", "修改成功！");
+		}else {
+			resultMap.put("info", false);
+			resultMap.put("msg", "修改失败！");
+		}
+		return resultMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 查询单个
+	 * @Date ${datetime}
+	 * @Param id
+	 * @return ${beanModel}VO
+	 **/
+	@Override
+	public ${beanModel}VO get${beanModel}ById(Integer id){
+		return ${model}Mapper.get${beanModel}ById(id);
+	}
+	
+}

@@ -1,0 +1,126 @@
+package ${packageName}.controller;
+
+import ${packageName}.entity.dto.${beanModel}DTO;
+import ${packageName}.entity.vo.${beanModel}VO;
+import ${packageName}.service.I${beanModel}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import com.wangzhixuan.commons.base.BaseController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * ${description} Controller控制层
+ * @author ${author}
+ * @create ${datetime}
+ **/
+@Controller
+public class ${beanModel}Controller extends BaseController{
+	
+	@Autowired
+	private I${beanModel}Service ${model}Service;
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 进入${description} 首页
+	 * @Date ${datetime}
+	 * @return java.lang.String
+	 **/
+	@RequestMapping("go${beanModel}Page")
+	public String go${beanModel}Page() {
+		return "";
+	}
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 进入新增页面
+	* @Date ${datetime}
+	* @Param []
+	* @return java.lang.String
+	**/
+	@RequestMapping("goAdd${beanModel}Page")
+	public String goAdd${beanModel}Page() {
+		return "";
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 查询${description} 列表
+	 * @Date ${datetime}
+	 * @Param [page, rows]
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@RequestMapping("get${beanModel}List")
+	@ResponseBody
+	public Map<String, Object> get${beanModel}List(int page, int rows) throws Exception {
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		${beanModel}DTO ${model}DTO=new ${beanModel}DTO();
+		${model}DTO.setStart((page - 1) * rows);
+		${model}DTO.setEnd(rows);
+		jsonMap = ${model}Service.get${beanModel}AllList(${model}DTO);
+		return jsonMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 新增
+	 * @Date ${datetime}
+	 * @Param [${model}DTO]
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@RequestMapping("doAdd${beanModel}")
+	@ResponseBody
+	public Map<String, Object> doAdd${beanModel}(${beanModel}DTO ${model}DTO) {
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		jsonMap = ${model}Service.save${beanModel}(${model}DTO);
+		return jsonMap;
+	}
+
+	/**
+	* @Author ${author}
+	* @Description //TODO 根据id查询信息，到修改页面
+	* @Date ${datetime}
+	* @Param [id, model]
+	* @return java.lang.String
+	**/
+	@RequestMapping("goUpd${beanModel}Page")
+	public String goUpd${beanModel}Page(int id, Model model) {
+		${beanModel}VO ${model}VO = ${model}Service.get${beanModel}ById(id);
+		model.addAttribute("${model}VO", ${model}VO);
+		return "";
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 修改信息
+	 * @Date ${datetime}
+	 * @Param [${beanModel}DTO]
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@RequestMapping("doUpd${beanModel}")
+	@ResponseBody
+	public Map<String, Object> doUpd${beanModel}(${beanModel}DTO ${model}DTO) {
+		Map<String, Object> jsonMap = ${model}Service.update${beanModel}(${model}DTO);
+		return jsonMap;
+	}
+
+	/**
+	 * @Author ${author}
+	 * @Description //TODO 根据id删除
+	 * @Date ${datetime}
+	 * @Param [id]
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@RequestMapping("del${beanModel}ById")
+	@ResponseBody
+	public Map<String, Object> del${beanModel}ById(Integer id) {
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		jsonMap = ${model}Service.delete${beanModel}ById(id);
+		return jsonMap;
+	}
+	
+}

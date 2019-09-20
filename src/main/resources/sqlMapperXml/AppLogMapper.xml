@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.cochain.mapper.AppLogMapper" >
+ 	 <resultMap id="BaseResultMap" type="com.manage.cochain.entity.vo.AppLogVO" >
+	      <id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="appid" column="appid" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="userid" column="userid" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="uri" column="uri" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="requestData" column="request_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+	      <result property="requestHeader" column="request_header" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+  	</resultMap>
+
+  	<sql id="Base_Column_List">
+  		id,appid,userid,uri,request_data,request_header,create_time
+  	</sql>
+
+	<sql id="AppLog_Query_Where">
+	   and 1=1
+	</sql>
+
+  	<!--查询所有-->
+  	<select id="getAppLogAllList" resultMap="BaseResultMap" parameterType="com.manage.cochain.entity.dto.AppLogDTO">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_app_log
+		<where>
+			<include refid="AppLog_Query_Where"/>
+		</where>
+		<if test="start !=null and end !=null" >
+			LIMIT  #{start},#{end}
+		</if>
+  	</select>
+
+	<!--统计数据-->
+	<select id="findAppLogTotal" resultType="int" parameterType="com.manage.cochain.entity.dto.AppLogDTO">
+		SELECT
+			count(*)
+		FROM
+		t_app_log
+		<where>
+			<include refid="AppLog_Query_Where"/>
+		</where>
+	</select>
+
+  	<!--查询单个-->
+  	<select id="getAppLogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			t_app_log
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+
+	<!--新增信息-->
+	<insert id="saveAppLog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.manage.cochain.entity.dto.AppLogDTO">
+	    insert into t_app_log (appid,userid,uri,request_data,request_header,create_time)
+			values(#{appid,jdbcType=VARCHAR},#{userid,jdbcType=VARCHAR},#{uri,jdbcType=VARCHAR},#{requestData,jdbcType=LONGVARCHAR},#{requestHeader,jdbcType=VARCHAR},now())
+	</insert>
+
+  	<!--修改信息-->
+  	<update id="updateAppLog" parameterType="com.manage.cochain.entity.dto.AppLogDTO" flushCache="true">
+  		update t_app_log 
+  		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="appid!=null and appid!=''">appid = #{appid,jdbcType=VARCHAR},</if>
+			<if test="userid!=null and userid!=''">userid = #{userid,jdbcType=VARCHAR},</if>
+			<if test="uri!=null and uri!=''">uri = #{uri,jdbcType=VARCHAR},</if>
+			<if test="requestData!=null and requestData!=''">request_data = #{requestData,jdbcType=LONGVARCHAR},</if>
+			<if test="requestHeader!=null and requestHeader!=''">request_header = #{requestHeader,jdbcType=VARCHAR},</if>
+			<!--<if test="createTime!=null">create_time = now(),</if>-->
+  		</set>
+  		where id = #{id ,jdbcType=INTEGER}
+  	</update>
+
+  	<!--根据id删除信息-->
+  	<delete id="deleteAppLogById" flushCache="true">
+  		delete from t_app_log where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	
